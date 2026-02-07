@@ -56,7 +56,7 @@ try {
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-dark bg-dark mb-4" role="navigation" aria-label="Navegação administrativa">
     <div class="container">
         <span class="navbar-brand mb-0 h1">Essence Admin</span>
         <div class="d-flex">
@@ -66,8 +66,8 @@ try {
     </div>
 </nav>
 
-<div class="container">
-    <div class="row mb-4">
+<main class="container" role="main" aria-label="Painel administrativo">
+    <div class="row mb-4" aria-label="Resumo de estatísticas">
         <div class="col-md-4">
             <div class="card border-0 shadow-sm text-center p-3">
                 <i class="bi bi-box-seam h1 text-primary"></i>
@@ -91,47 +91,48 @@ try {
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" aria-label="Ações e produtos">
         <div class="col-md-12 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="fw-light">Ações Rápidas</h4>
+                <h4 class="fw-light" id="acoes-rapidas">Ações Rápidas</h4>
             </div>
-            <div class="d-flex gap-2">
-                <a href="/admin/produtos_cadastrar" class="btn btn-dark">
-                    <i class="bi bi-plus-lg"></i> Novo Produto
+            <div class="d-flex gap-2" aria-labelledby="acoes-rapidas">
+                <a href="/admin/produtos_cadastrar" class="btn btn-dark" aria-label="Cadastrar novo produto">
+                    <i class="bi bi-plus-lg" aria-hidden="true"></i> Novo Produto
                 </a>
-                <a href="/admin/categorias_gerenciar" class="btn btn-outline-dark">
-                    <i class="bi bi-folder-plus"></i> Gerenciar Categorias
+                <a href="/admin/categorias_gerenciar" class="btn btn-outline-dark" aria-label="Gerenciar categorias">
+                    <i class="bi bi-folder-plus" aria-hidden="true"></i> Gerenciar Categorias
                 </a>
             </div>
         </div>
 
         <div class="col-md-12">
-            <div class="card border-0 shadow-sm">
+            <div class="card border-0 shadow-sm" aria-label="Tabela de produtos">
                 <div class="card-header bg-white py-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
-                    <h5 class="mb-0">Produtos</h5>
-                    <form class="d-flex" method="get" action="">
-                        <input type="text" class="form-control form-control-sm me-2" name="search" placeholder="Pesquisar por nome, código ou categoria" value="<?= htmlspecialchars($search ?? '') ?>">
-                        <button class="btn btn-outline-dark btn-sm" type="submit"><i class="bi bi-search"></i> Pesquisar</button>
+                    <h5 class="mb-0" id="produtos-titulo">Produtos</h5>
+                    <form class="d-flex" method="get" action="" role="search" aria-label="Pesquisar produtos">
+                        <label for="admin-search" class="visually-hidden">Pesquisar produtos</label>
+                        <input type="text" id="admin-search" class="form-control form-control-sm me-2" name="search" placeholder="Pesquisar por nome, código ou categoria" value="<?= htmlspecialchars($search ?? '') ?>">
+                        <button class="btn btn-outline-dark btn-sm" type="submit" aria-label="Pesquisar"><i class="bi bi-search" aria-hidden="true"></i> Pesquisar</button>
                     </form>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover align-middle mb-0" aria-describedby="produtos-titulo">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Código</th>
-                                <th>Categoria</th>
-                                <th>Preço</th>
-                                <th>Estoque</th>
-                                <th class="text-end">Ações</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Estoque</th>
+                                <th scope="col" class="text-end">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (count($ultimosProdutos) > 0): ?>
                                 <?php foreach ($ultimosProdutos as $p): ?>
-                                <tr>
+                                <tr tabindex="0">
                                     <td>#<?= $p['id'] ?></td>
                                     <td><?= htmlspecialchars($p['name']) ?></td>
                                     <td><?= htmlspecialchars($p['codigo'] ?? '') ?></td>
@@ -143,17 +144,17 @@ try {
                                         echo $total_stock;
                                     ?> un.</td>
                                     <td class="text-end">
-                                        <a href="/admin/produtos_editar?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                        <a href="/admin/produtos_editar?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-primary" aria-label="Editar produto <?= htmlspecialchars($p['name']) ?>"><i class="bi bi-pencil" aria-hidden="true"></i></a>
                                         <button type="button" class="btn btn-sm btn-outline-danger btn-deletar" 
-                                                data-id="<?= $p['id'] ?>" data-nome="<?= htmlspecialchars($p['name']) ?>">
-                                            <i class="bi bi-trash"></i>
+                                                data-id="<?= $p['id'] ?>" data-nome="<?= htmlspecialchars($p['name']) ?>" aria-label="Deletar produto <?= htmlspecialchars($p['name']) ?>">
+                                            <i class="bi bi-trash" aria-hidden="true"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="6" class="text-center py-3 text-muted">Nenhum produto cadastrado</td>
+                                    <td colspan="7" class="text-center py-3 text-muted" role="alert" aria-live="polite">Nenhum produto cadastrado</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -164,6 +165,8 @@ try {
     </div>
 </div>
 
+
+</main>
 </body>
 </html>
 

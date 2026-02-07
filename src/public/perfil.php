@@ -34,70 +34,62 @@ require_once $viewsPath . '/includes/head.php';
 require_once $viewsPath . '/includes/header.php';
 ?>
 
-<main class="container my-5">
+<main class="container my-5" role="main" aria-label="Área do perfil do cliente">
     <div class="row">
-        <div class="col-md-3 mb-4">
+        <nav class="col-md-3 mb-4" aria-label="Menu do perfil">
             <div class="list-group list-group-flush border shadow-sm" id="perfilTabs" role="tablist">
                 <?php if (isset($_SESSION['success'])): ?>
                     <div class="alert alert-success"><?= $_SESSION['success'];
                     unset($_SESSION['success']); ?></div>
                 <?php endif; ?>
                 <a class="list-group-item list-group-item-action d-flex align-items-center active" id="tab-dados-link"
-                    data-bs-toggle="list" href="#tab-dados" role="tab">
-                    <i class="bi bi-person-gear me-2"></i> Meus Dados
+                    data-bs-toggle="list" href="#tab-dados" role="tab" aria-controls="tab-dados" aria-selected="true" tabindex="0">
+                    <i class="bi bi-person-gear me-2" aria-hidden="true"></i> <span>Meus Dados</span>
                 </a>
-
                 <a class="list-group-item list-group-item-action d-flex align-items-center" id="tab-sacola-link"
-                    data-bs-toggle="list" href="#tab-sacola" role="tab">
-                    <i class="bi bi-bag-heart me-2"></i> Minha Sacola
+                    data-bs-toggle="list" href="#tab-sacola" role="tab" aria-controls="tab-sacola" aria-selected="false" tabindex="0">
+                    <i class="bi bi-bag-heart me-2" aria-hidden="true"></i> <span>Minha Sacola</span>
                 </a>
-
                 <a class="list-group-item list-group-item-action d-flex align-items-center" id="tab-favoritos-link"
-                    data-bs-toggle="list" href="#tab-favoritos" role="tab">
-                    <i class="bi bi-heart me-2"></i> Meus Favoritos
+                    data-bs-toggle="list" href="#tab-favoritos" role="tab" aria-controls="tab-favoritos" aria-selected="false" tabindex="0">
+                    <i class="bi bi-heart me-2" aria-hidden="true"></i> <span>Meus Favoritos</span>
                 </a>
-
                 <a class="list-group-item list-group-item-action d-flex align-items-center" id="tab-pedidos-link"
-                    data-bs-toggle="list" href="#tab-pedidos" role="tab">
-                    <i class="bi bi-box-seam me-2"></i> Meus Pedidos
+                    data-bs-toggle="list" href="#tab-pedidos" role="tab" aria-controls="tab-pedidos" aria-selected="false" tabindex="0">
+                    <i class="bi bi-box-seam me-2" aria-hidden="true"></i> <span>Meus Pedidos</span>
                 </a>
-
-                <a href="/logout" class="list-group-item list-group-item-action text-danger">
-                    <i class="bi bi-box-arrow-right me-2"></i> Sair
+                <a href="/logout" class="list-group-item list-group-item-action text-danger" aria-label="Sair da conta">
+                    <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i> <span>Sair</span>
                 </a>
             </div>
-        </div>
+        </nav>
 
-        <div class="col-md-9">
+        <section class="col-md-9" aria-label="Conteúdo do perfil">
             <div class="bg-white p-4 border shadow-sm tab-content" id="nav-tabContent">
 
-                <div class="tab-pane fade show active" id="tab-dados" role="tabpanel">
+                <div class="tab-pane fade show active" id="tab-dados" role="tabpanel" aria-labelledby="tab-dados-link">
                     <h3 class="fw-light mb-4">Minha Conta</h3>
-                    <form action="/atualizar_perfil" method="POST" class="essence-form">
+                    <form action="/atualizar_perfil" method="POST" class="essence-form" aria-label="Formulário de atualização de dados do perfil">
 
                         <div class="mb-5">
                             <h5 class="small text-uppercase letter-spacing-2 text-muted mb-3 border-bottom pb-2">
                                 Identificação</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">Nome Completo</label>
-                                    <input type="text" name="nome" value="<?= $user_nome ?>" class="form-control"
-                                        required>
+                                    <label class="form-label small text-uppercase" for="perfil-nome">Nome Completo</label>
+                                    <input type="text" id="perfil-nome" name="nome" value="<?= $user_nome ?>" class="form-control" required autocomplete="name">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">E-mail</label>
-                                    <input type="email" value="<?= htmlspecialchars($user['email'] ?? $user_email) ?>"
-                                        class="form-control bg-light" readonly>
+                                    <label class="form-label small text-uppercase" for="perfil-email">E-mail</label>
+                                    <input type="email" id="perfil-email" value="<?= htmlspecialchars($user['email'] ?? $user_email) ?>" class="form-control bg-light" readonly autocomplete="email">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">CPF</label>
-                                    <input type="text" name="cpf" id="cpf" value="<?= $user_cpf ?>"
-                                        placeholder="000.000.000-00" class="form-control" required>
+                                    <label class="form-label small text-uppercase" for="cpf">CPF</label>
+                                    <input type="text" name="cpf" id="cpf" value="<?= $user_cpf ?>" placeholder="000.000.000-00" class="form-control" required autocomplete="off">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">Telefone / WhatsApp</label>
-                                    <input type="tel" name="telefone" id="telefone" value="<?= $user_telefone ?>"
-                                        placeholder="(00) 00000-0000" class="form-control" required>
+                                    <label class="form-label small text-uppercase" for="telefone">Telefone / WhatsApp</label>
+                                    <input type="tel" name="telefone" id="telefone" value="<?= $user_telefone ?>" placeholder="(00) 00000-0000" class="form-control" required autocomplete="tel">
                                 </div>
                             </div>
                         </div>
@@ -108,33 +100,28 @@ require_once $viewsPath . '/includes/header.php';
                             <p class="text-muted small mb-3">Este endereço é usado para o seu cadastro pessoal.</p>
                             <div class="row g-3">
                                 <div class="col-md-4">
-                                    <label class="form-label small text-uppercase">CEP</label>
-                                    <input type="text" name="cep" id="cep" value="<?= $user_cep ?>" class="form-control"
-                                        placeholder="00000-000" required>
+                                    <label class="form-label small text-uppercase" for="cep">CEP</label>
+                                    <input type="text" name="cep" id="cep" value="<?= $user_cep ?>" class="form-control" placeholder="00000-000" required autocomplete="postal-code">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">Logradouro</label>
-                                    <input type="text" name="endereco" id="endereco" value="<?= $user_endereco ?>"
-                                        class="form-control" required>
+                                    <label class="form-label small text-uppercase" for="endereco">Logradouro</label>
+                                    <input type="text" name="endereco" id="endereco" value="<?= $user_endereco ?>" class="form-control" required autocomplete="address-line1">
                                 </div>
                                 <div class="col-md-2">
-                                    <label class="form-label small text-uppercase">Nº</label>
-                                    <input type="text" name="numero" value="<?= $user_numero ?>" class="form-control"
-                                        required>
+                                    <label class="form-label small text-uppercase" for="perfil-numero">Nº</label>
+                                    <input type="text" id="perfil-numero" name="numero" value="<?= $user_numero ?>" class="form-control" required autocomplete="address-line2">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-uppercase">Bairro</label>
-                                    <input type="text" name="bairro" id="bairro" value="<?= $user_bairro ?>"
-                                        class="form-control" required>
+                                    <label class="form-label small text-uppercase" for="bairro">Bairro</label>
+                                    <input type="text" name="bairro" id="bairro" value="<?= $user_bairro ?>" class="form-control" required autocomplete="address-level3">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-uppercase">Cidade</label>
-                                    <input type="text" name="cidade" id="cidade" value="<?= $user_cidade ?>"
-                                        class="form-control" required>
+                                    <label class="form-label small text-uppercase" for="cidade">Cidade</label>
+                                    <input type="text" name="cidade" id="cidade" value="<?= $user_cidade ?>" class="form-control" required autocomplete="address-level2">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-uppercase">Estado</label>
-                                    <select name="estado" id="uf" class="form-select" required>
+                                    <label class="form-label small text-uppercase" for="uf">Estado</label>
+                                    <select name="estado" id="uf" class="form-select" required autocomplete="address-level1">
                                         <option value="">Selecione</option>
                                         <?php
                                         $estados = [
@@ -174,9 +161,8 @@ require_once $viewsPath . '/includes/header.php';
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small text-uppercase">Complemento (Opcional)</label>
-                                    <input type="text" name="complemento" value="<?= $user_complemento ?>"
-                                        class="form-control" placeholder="Apto, bloco, referência...">
+                                    <label class="form-label small text-uppercase" for="perfil-complemento">Complemento (Opcional)</label>
+                                    <input type="text" id="perfil-complemento" name="complemento" value="<?= $user_complemento ?>" class="form-control" placeholder="Apto, bloco, referência..." autocomplete="address-line3">
                                 </div>
                             </div>
                         </div>
@@ -186,24 +172,23 @@ require_once $viewsPath . '/includes/header.php';
                                 Segurança</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">Nova Senha</label>
-                                    <input type="password" name="nova_senha" class="form-control"
-                                        placeholder="Deixe em branco para manter">
+                                    <label class="form-label small text-uppercase" for="nova_senha">Nova Senha</label>
+                                    <input type="password" name="nova_senha" id="nova_senha" class="form-control" placeholder="Deixe em branco para manter" autocomplete="new-password">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-uppercase">Confirmar Nova Senha</label>
-                                    <input type="password" name="confirma_senha" class="form-control">
+                                    <label class="form-label small text-uppercase" for="confirma_senha">Confirmar Nova Senha</label>
+                                    <input type="password" name="confirma_senha" id="confirma_senha" class="form-control" autocomplete="new-password">
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-3 border-top">
-                            <button type="submit" class="btn btn-dark px-5">Salvar Cadastro</button>
+                            <button type="submit" class="btn btn-dark px-5" aria-label="Salvar alterações do perfil">Salvar Cadastro</button>
                         </div>
                     </form>
                 </div>
 
-                <div class="tab-pane fade" id="tab-sacola" role="tabpanel">
+                <div class="tab-pane fade" id="tab-sacola" role="tabpanel" aria-labelledby="tab-sacola-link">
                     <h3 class="fw-light mb-4">Minha Sacola</h3>
                     <?php
                     $cartQuery = $db->prepare('SELECT c.id, c.product_id, c.quantity, c.selected_size, p.name, p.price, p.image_url, p.stock_by_size FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = :user_id ORDER BY c.added_at DESC');
@@ -212,10 +197,10 @@ require_once $viewsPath . '/includes/header.php';
                     $cartItems = $cartQuery->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php if (empty($cartItems)): ?>
-                        <div class="text-center py-5">
-                            <i class="bi bi-bag-x display-1 text-light"></i>
+                        <div class="text-center py-5" role="alert" aria-live="polite">
+                            <i class="bi bi-bag-x display-1 text-light" aria-hidden="true"></i>
                             <p class="mt-3 text-muted">A tua sacola está vazia.</p>
-                            <a href="/" class="btn btn-outline-dark btn-sm">Ir para a Loja</a>
+                            <a href="/" class="btn btn-outline-dark btn-sm" aria-label="Ir para a loja">Ir para a Loja</a>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive mb-4">
@@ -269,7 +254,7 @@ require_once $viewsPath . '/includes/header.php';
                     <?php endif; ?>
                 </div>
 
-                <div class="tab-pane fade" id="tab-favoritos" role="tabpanel">
+                <div class="tab-pane fade" id="tab-favoritos" role="tabpanel" aria-labelledby="tab-favoritos-link">
                     <h3 class="fw-light mb-4">Meus Favoritos</h3>
                     <?php
                     // Buscar favoritos do usuário
@@ -279,7 +264,7 @@ require_once $viewsPath . '/includes/header.php';
                     $favoritos = $favQuery->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php if (empty($favoritos)): ?>
-                        <p class="text-muted text-center py-5">Nenhum favorito encontrado.</p>
+                        <p class="text-muted text-center py-5" role="alert" aria-live="polite">Nenhum favorito encontrado.</p>
                     <?php else: ?>
                         <div class="row g-4">
                         <?php foreach ($favoritos as $produto): ?>
@@ -301,13 +286,13 @@ require_once $viewsPath . '/includes/header.php';
                     <?php endif; ?>
                 </div>
 
-                <div class="tab-pane fade" id="tab-pedidos" role="tabpanel">
+                <div class="tab-pane fade" id="tab-pedidos" role="tabpanel" aria-labelledby="tab-pedidos-link">
                     <h3 class="fw-light mb-4">Meus Pedidos</h3>
-                    <p class="text-muted text-center py-5">Nenhum pedido realizado ainda.</p>
+                    <p class="text-muted text-center py-5" role="alert" aria-live="polite">Nenhum pedido realizado ainda.</p>
                 </div>
 
             </div>
-        </div>
+        </section>
     </div>
 </main>
 

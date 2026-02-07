@@ -1,4 +1,4 @@
-<footer class="bg-white border-top pt-5 pb-4 mt-5">
+<footer class="bg-white border-top pt-5 pb-4 mt-5" role="contentinfo" aria-label="Rodapé Essence">
     <div class="container">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6">
@@ -7,8 +7,8 @@
                     Mais que uma loja de lingeries, um movimento em prol da saúde feminina e do conforto consciente.
                 </p>
                 <div class="d-flex gap-3 mt-4">
-                    <a href="#" class="text-dark"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-dark"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" class="text-dark" aria-label="Instagram Essence" title="Instagram Essence"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="#" class="text-dark" aria-label="WhatsApp Essence" title="WhatsApp Essence"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
                 </div>
             </div>
 
@@ -34,10 +34,11 @@
             <div class="col-lg-4 col-md-6">
                 <h5 class="text-uppercase small fw-bold mb-4" style="letter-spacing: 1px;">Acompanhe-nos</h5>
                 <p class="text-secondary small">Cadastre-se para receber conteúdos sobre saúde íntima e novidades.</p>
-                <form class="mt-3">
+                <form class="mt-3" aria-label="Formulário de newsletter Essence">
                     <div class="input-group">
-                        <input type="email" class="form-control rounded-0 border-dark small" placeholder="Seu melhor e-mail" aria-label="E-mail">
-                        <button class="btn btn-dark rounded-0 text-uppercase small" type="button">Assinar</button>
+                        <label for="newsletter-email" class="visually-hidden">E-mail</label>
+                        <input type="email" id="newsletter-email" class="form-control rounded-0 border-dark small" placeholder="Seu melhor e-mail" aria-label="E-mail">
+                        <button class="btn btn-dark rounded-0 text-uppercase small" type="button" aria-label="Assinar newsletter">Assinar</button>
                     </div>
                 </form>
             </div>

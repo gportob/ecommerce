@@ -129,6 +129,33 @@ body {
   position: relative;
 }
 
+.nav-links-essence .nav-link {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 1rem !important;
+    color: var(--text-color) !important;
+    position: relative;
+}
+
+@media (max-width: 991.98px) {
+    .nav-links-essence {
+        width: 100%;
+        background: #fff;
+        margin-bottom: 1rem;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .nav-links-essence.collapse:not(.show) {
+        display: none !important;
+    }
+    .nav-links-essence.collapse.show {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+    }
+}
 .nav-links-essence .nav-link::after {
   content: "";
   position: absolute;
