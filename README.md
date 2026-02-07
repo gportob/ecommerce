@@ -74,7 +74,7 @@ http://localhost:8080
 
 **Admin:**
 - Email: `admin@essence.com`
-- Senha: `admin123`
+- Senha: ``
 
 **Ou criar uma nova conta via registro**
 
@@ -121,7 +121,7 @@ Dockerfile              ✅ Configurado
 
 ### Teste 1: Login
 1. Acesse `/login`
-2. Use: `admin@essence.com` / `admin123`
+2. Use: `admin@essence.com` / ``
 3. Deve redirecionar para `/admin/`
 
 ### Teste 2: Registro
