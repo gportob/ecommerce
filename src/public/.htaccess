@@ -1,0 +1,96 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Evita rewriting de arquivos e diretórios reais
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Redireciona para index.php com clean URLs
+    # Trata URLs como /login, /perfil, /categoria, etc.
+    RewriteRule ^(.+)/?$ $1.php [L]
+    
+    # Se não encontrar .php, redireciona para index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^$ index.php [L]
+</IfModule>
+
+# Segurança: Headers de segurança importantes
+<IfModule mod_headers.c>
+    # Previne clickjacking (X-Frame-Options)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # Previne MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Habilita proteção contra XSS do navegador
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Content Security Policy (básica)
+    Header always set Content-Security-Policy "default-src 'self' https:; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https:; font-src 'self' https:;"
+    
+    # HTTPS (Strict-Transport-Security)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Segurança: Bloqueia acesso a arquivos sensíveis
+<FilesMatch "\.(env|jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot|txt|xml|json)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+<FilesMatch "\.php$">
+    # Apenas PHP pode executar scripts
+</FilesMatch>
+
+# Protege diretórios contra listing
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# Cache control headers para melhor performance
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 hour"
+    
+    # HTML: sem cache (revalidar sempre)
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # CSS e JavaScript: cache de 1 semana
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-javascript "access plus 1 week"
+    
+    # Imagens: cache de 1 mês
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+    
+    # Fontes: cache de 1 mês
+    ExpiresByType application/font-woff "access plus 1 month"
+    ExpiresByType application/font-woff2 "access plus 1 month"
+    ExpiresByType font/ttf "access plus 1 month"
+    ExpiresByType font/otf "access plus 1 month"
+    ExpiresByType font/eot "access plus 1 month"
+    
+    # JSON e XML: cache de 1 hora
+    ExpiresByType application/json "access plus 1 hour"
+    ExpiresByType application/xml "access plus 1 hour"
+</IfModule>
+
+# Compressão GZIP para melhor performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>

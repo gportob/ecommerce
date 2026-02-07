@@ -1,0 +1,5 @@
+# Proteção de segurança básica para a pasta /api
+# Bloqueia acesso direto a arquivos sensíveis
+<FilesMatch "\.php$">
+    Allow from all
+</FilesMatch>

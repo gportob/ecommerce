@@ -1,0 +1,733 @@
+/* Toast custom Essence */
+.essence-toast {
+    position: fixed;
+    z-index: 9999;
+    right: 24px;
+    bottom: 24px;
+    min-width: 260px;
+    max-width: 350px;
+    background: #fff;
+    color: #222;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    padding: 18px 22px 18px 22px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(40px);
+    transition: all 0.4s cubic-bezier(.4,0,.2,1);
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.essence-toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.essence-toast-success {
+    border-left: 5px solid var(--accent-gold);
+}
+.essence-toast-error {
+    border-left: 5px solid #d9534f;
+}
+.essence-toast .btn {
+    font-size: 0.9rem;
+    padding: 6px 18px;
+    border-radius: 4px;
+}
+/* ==========================================================================
+   1. VARIÁVEIS E DEFINIÇÕES GLOBAIS
+   ========================================================================== */
+:root {
+  --bg-color: #fcfbf9;
+  --text-color: #2d2d2d;
+  --accent-gold: #a67c52;
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Montserrat", sans-serif;
+  --border-light: #e0ded8;
+  --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   2. COMPONENTES REUTILIZÁVEIS
+   ========================================================================== */
+.section-title, .health-title, .hero-title, .contact-header h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+.subtitle, .hero-subtitle {
+  text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    color: var(--accent-gold) !important;
+    background-color: var(--border-light);
+    padding: 0.2rem;
+}
+
+.btn-essence-dark, .btn-essence-outline, .btn-submit, .btn-login-essence {
+  padding: 12px 35px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  transition: var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-essence-dark, .btn-submit {
+  background-color: var(--text-color);
+  color: #fff;
+  border: 1px solid var(--text-color);
+}
+
+.btn-essence-dark:hover, .btn-submit:hover {
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.btn-essence-outline, .btn-login-essence {
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  background: transparent;
+}
+
+.btn-essence-outline:hover, .btn-login-essence:hover {
+  border-color: var(--accent-gold);
+  background-color: var(--accent-gold);
+  color: white;
+}
+
+/* ==========================================================================
+   3. NAVEGAÇÃO
+   ========================================================================== */
+.essence-logo {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 3px;
+  color: var(--text-color) !important;
+}
+
+.nav-links-essence .nav-link {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 1rem !important;
+  color: var(--text-color) !important;
+  position: relative;
+}
+
+.nav-links-essence .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0; height: 1px; bottom: 5px; left: 1rem;
+  background-color: var(--accent-gold);
+  transition: 0.3s;
+}
+
+.nav-links-essence .nav-link:hover::after { width: calc(100% - 2rem); }
+
+.cart-icon-wrapper { position: relative; font-size: 1.3rem; color: var(--text-color); }
+
+.cart-badge {
+  position: absolute; top: -5px; right: -10px;
+  background-color: var(--accent-gold);
+  color: #fff; font-size: 0.65rem; min-width: 20px;
+  height: 20px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+}
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+.hero-section {
+  min-height: 70vh !important;
+  display: flex;
+  align-items: center;
+}
+
+.hero-full-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 300px 0 0 300px; 
+  transition: var(--transition);
+}
+
+.hero-title { font-size: 3rem; }
+.hero-text { max-width: 400px; }
+
+/* ==========================================================================
+   5. CARROSSEL DE PRODUTOS (SWIPER)
+   ========================================================================== */
+.swiperNovidades { height: 28rem; }
+
+.product-card { transition: var(--transition); position: relative; }
+
+.product-image-wrapper {
+  position: relative;
+  background-color: #f1f0ee;
+  overflow: hidden;
+}
+
+.product-img { transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);}
+
+    .product-image-wrapper .img-fluid {
+       width: 100% !important;
+    height: 15rem !important;
+    object-fit: cover !important;
+    }
+
+.product-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(45, 45, 45, 0.15);
+  opacity: 0; transition: var(--transition); z-index: 2;
+}
+
+.btn-ver-detalhes {
+  background: #fff; color: var(--text-color);
+  padding: 10px 25px; font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 2px; transform: translateY(20px);
+  transition: var(--transition); border: 1px solid var(--text-color);
+}
+
+.product-card:hover .product-overlay { opacity: 1; }
+.product-card:hover .btn-ver-detalhes { transform: translateY(0); }
+.product-card:hover .product-img { transform: scale(1.08); }
+.product-card:hover .product-name { color: var(--accent-gold) !important; }
+
+.product-price { color: var(--accent-gold); font-weight: 500; }
+.swiper-pagination-bullet-active {
+    background-color: var(--accent-gold) !important;
+}
+
+.slide-news {
+    height: 25rem !important;
+}
+
+/* ==========================================================================
+   6. VOCÊ SABIA & INSTAGRAM
+   ========================================================================== */
+.img-did-you-know { width: 35%; }
+.text-did-you-know { width: 65%; }
+
+.did-you-know img {
+  box-shadow: 15px 15px 0px var(--border-light);
+  transition: var(--transition);
+}
+
+.did-you-know:hover img {
+  transform: translate(-5px, -5px);
+  box-shadow: 20px 20px 0px var(--accent-gold);
+}
+
+.insta-post { display: block; overflow: hidden; position: relative; }
+.insta-post img { filter: grayscale(30%); transition: var(--transition); }
+.insta-post:hover img { filter: grayscale(0%); transform: scale(1.1); }
+
+/* ==========================================================================
+   7. RESPONSIVIDADE (MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 991px) {
+  /* Hero */
+  .hero-section { min-height: auto !important; text-align: center; padding: 40px 0; }
+  .hero-full-image { height: 350px !important; margin-top: 20px; }
+  .hero-full-image img { border-radius: 200px 200px 0 0; }
+  .hero-text { max-width: 100%; margin: 0 auto; }
+
+  /* Navigation Order Adjustment */
+  .navbar-collapse { padding: 20px 0; text-align: center; }
+  
+  .nav-links-essence { margin-top: 0; }
+}
+
+@media (max-width: 991px) {
+    /* Garante que o menu colapsável seja um flexbox vertical */
+    .navbar-collapse {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .header-actions {
+        width: 100%;
+        border-bottom: 1px solid var(--border-light); /* Borda separadora apenas no mobile */
+        padding-bottom: 15px;
+    }
+
+    .nav-links-essence {
+        padding-top: 15px;
+        width: 100%;
+    }
+
+    .nav-links-essence .nav-link {
+        padding: 10px 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+  .img-did-you-know, .text-did-you-know { width: 100%; }
+  .did-you-know .row { text-align: center; flex-direction: column; }
+  .text-did-you-know { padding-top: 30px; }
+  .swiperNovidades {
+    height: 22rem;
+  }
+}
+
+.letter-spacing-2 { letter-spacing: 2px; }
+
+.top-bar {
+  background-color: var(--text-color); /* Usando o tom escuro para contraste */
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 8px 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.top-bar-message strong {
+  color: var(--accent-gold); /* Destaca o cupom com a cor da marca */
+}
+
+.top-bar-links a {
+  transition: opacity 0.3s ease;
+}
+
+.top-bar-links a:hover {
+  opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    font-size: 0.65rem; /* Fonte levemente menor no celular */
+    padding: 10px 15px;
+  }
+  
+  .top-bar-message {
+    text-align: center;
+    line-height: 1.4;
+  }
+  
+}
+
+/* ==========================================================================
+   8. PÁGINA DE CONTATO
+   ========================================================================== */
+.contact-page {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.contact-header h1 {
+    font-size: 3rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.contact-header p {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+}
+
+/* Informações de Atendimento */
+.contact-info h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.contact-info h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 1px;
+    background-color: var(--accent-gold);
+}
+
+.contact-info p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.contact-info strong {
+    color: var(--text-color);
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+/* Formulário Essence */
+.contact-form-wrapper {
+    background: #fff;
+    padding: 40px;
+    border: 1px solid var(--border-light);
+}
+
+.essence-form .form-group {
+    margin-bottom: 25px;
+}
+
+.essence-form label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.essence-form input, 
+.essence-form select, 
+.essence-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-light);
+    background-color: var(--bg-color);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    transition: var(--transition);
+    border-radius: 0; /* Estilo flat */
+}
+
+.essence-form input:focus, 
+.essence-form select:focus, 
+.essence-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    background-color: #fff;
+}
+
+/* Mensagem de Sucesso */
+.success-message {
+    background-color: #f4f9f4;
+    border: 1px solid #d4edda;
+    color: #155724;
+    padding: 40px;
+    text-align: center;
+    font-family: var(--font-serif);
+}
+
+/* Responsividade Contato */
+@media (max-width: 991px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .contact-form-wrapper {
+        padding: 25px;
+    }
+}
+
+/* ==========================================================================
+   9. PÁGINA QUEM SOMOS (ABOUT)
+   ========================================================================== */
+
+/* Hero da Página Institucional */
+.about-hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 80px;
+}
+
+.about-hero .hero-content h1 {
+    font-size: 3.5rem;
+    font-family: var(--font-serif);
+    max-width: 800px;
+    margin-top: 10px;
+}
+
+/* Manifesto / Filosofia */
+.manifesto {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+}
+
+.manifesto-text h2 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.manifesto-text p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.manifesto-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 300px 300px 0 0; /* Mantém a identidade visual do arco */
+    box-shadow: 20px 20px 0px var(--bg-color);
+}
+
+/* Pilares da Marca */
+.pillars {
+    background-color: var(--bg-color); /* Fundo bege clarinho */
+    padding: 100px 0;
+    margin: 80px 0;
+}
+
+.pillars .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.pillar-item {
+    padding: 40px;
+    background: #fff;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.pillar-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-gold);
+}
+
+.pillar-item h3 {
+    font-family: var(--font-serif);
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.pillar-item p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Responsividade Institucional */
+@media (max-width: 991px) {
+    .about-hero { height: 40vh; }
+    .about-hero .hero-content h1 { font-size: 2rem; padding: 0 20px; }
+    
+    .manifesto-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    
+    .manifesto-image { order: -1; } /* Imagem vai para cima no mobile */
+    .manifesto-image img { height: 350px; }
+
+    .pillars .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   10. PÁGINA DE AUTENTICAÇÃO (LOGIN/CADASTRO)
+   ========================================================================== */
+.auth-page {
+    background-color: var(--bg-color);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.auth-card {
+    background: #fff;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.auth-card:hover {
+    border-color: var(--accent-gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.auth-header h2 {
+    font-family: var(--font-serif);
+    margin-top: 5px;
+}
+
+/* Ajuste nos inputs para ficarem mais leves no card de login */
+.auth-card .essence-form input {
+    background-color: transparent;
+    border-width: 0 0 1px 0; /* Apenas linha inferior para um look mais moderno */
+    padding: 10px 0;
+}
+
+.auth-card .essence-form input:focus {
+    background-color: transparent;
+    border-color: var(--accent-gold);
+}
+
+/* Responsividade Auth */
+@media (max-width: 991px) {
+    .auth-page { padding: 40px 0; }
+    .auth-card { border: none; background: transparent; padding: 0 !important; }
+}
+
+/* ==========================================================================
+   MELHORIAS DE PRODUTO E CATEGORIA
+   ========================================================================== */
+
+/* Cards de Produto - Melhorias de Visual e Performance */
+.product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 1.25rem;
+}
+
+.product-card .btn {
+    margin-top: auto;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Descrição do Produto */
+.produto-detalhes {
+    background: var(--bg-color);
+}
+
+.produto-detalhes h1,
+.produto-detalhes h2,
+.produto-detalhes h5 {
+    color: var(--text-color);
+    font-family: var(--font-serif);
+}
+
+/* Breadcrumb - Acessibilidade */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0.5rem 0;
+}
+
+.breadcrumb-item a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--text-color);
+}
+
+/* Botões de Tamanho */
+.btn-tamanho {
+    min-width: 50px;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-width: 2px;
+}
+
+.btn-tamanho.active,
+.btn-tamanho[aria-checked="true"] {
+    background-color: var(--text-color);
+    border-color: var(--text-color);
+    color: white;
+}
+
+.btn-tamanho:hover {
+    border-color: var(--text-color);
+}
+
+/* Controles de Quantidade */
+#quantidade {
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+}
+
+#quantidade:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.25);
+}
+
+/* Categoria Page */
+.category-page {
+    min-height: calc(100vh - 200px);
+}
+
+/* Responsividade em Mobile */
+@media (max-width: 576px) {
+    .product-card .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-tamanho {
+        min-width: 45px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}

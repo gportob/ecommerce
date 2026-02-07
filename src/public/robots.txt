@@ -1,0 +1,17 @@
+# Robots.txt para Essence Lingerie
+# Permite indexação de todas as páginas públicas
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /config/
+Disallow: /*.php
+Disallow: /login_process
+Disallow: /register_process
+
+# Arquivo de sitemap
+Sitemap: https://localhost:8080/sitemap.xml
+
+# Crawl delay (em segundos)
+Crawl-delay: 1
