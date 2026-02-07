@@ -23,7 +23,7 @@ http://localhost:8080
 ### Admin Padrão
 - **URL**: http://localhost:8080/login
 - **Email**: admin@essence.com
-- **Senha**: admin123
+- **Senha**: 
 - **Resultado esperado**: Redireciona para `/admin/`
 
 ### Teste de Login com Erro
@@ -67,7 +67,7 @@ http://localhost:8080
 3. **Resultado esperado**: Redireciona para `/login?error=not_authenticated`
 
 ### Teste 2: Admin Padrão Acessa Admin
-1. Faça login com `admin@essence.com` / `admin123`
+1. Faça login com `admin@essence.com` / ``
 2. Acesse: http://localhost:8080/admin/
 3. **Resultado esperado**: Dashboard administrativo carrega
 
@@ -188,7 +188,7 @@ Aguarde 10 segundos e tente novamente.
 
 ```
 Email: admin@essence.com
-Senha: admin123
+Senha:
 ```
 
 ---
