@@ -218,7 +218,7 @@ Escalabilidade: ⭐⭐⭐⭐☆ (4/5)
 ## 📞 Suporte Rápido
 
 ### Erro: "Senha incorreta" mesmo com senha certa
-**Solução:** O admin padrão usa senha: `admin123`
+**Solução:** O admin padrão usa senha: ``
 
 ### Erro: "Rota não encontrada"
 **Solução:** Recrie containers: `docker-compose up --build`
