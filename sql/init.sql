@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS wishlist (
     INDEX idx_product (product_id)
 );
 
--- INSERIR USUÁRIO ADMIN PADRÃO (Senha: admin123)
+-- INSERIR USUÁRIO ADMIN PADRÃO (Senha: )
 -- Isso garante que toda vez que você subir o Docker, o admin exista
 INSERT IGNORE INTO users (name, email, password, role) 
 VALUES ('Administrador Essence', 'admin@essence.com', '$2y$10$cxtlrjvI3BYNBbJQ3hcPDuhlo75BB5pTZ7RN.ONIiSzcdMkiMKkK2', 'admin');
