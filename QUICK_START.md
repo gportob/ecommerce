@@ -24,7 +24,7 @@ http://localhost:8080
 
 **Credenciais:**
 - Email: `admin@essence.com`
-- Senha: `admin123`
+- Senha: ``
 
 **Resultado esperado:** Vai para `/admin/`
 
