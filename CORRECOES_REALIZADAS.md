@@ -183,11 +183,11 @@
 - ✅ Tabela `users` com campos completos
 - ✅ Hash de senha padrão (BCRYPT)
 - ✅ Role padrão: 'client' para novos usuários
-- ✅ Admin padrão: `admin@essence.com` / `admin123`
+- ✅ Admin padrão: `admin@essence.com` / ``
 
 **Credenciais Padrão:**
 - Email: `admin@essence.com`
-- Senha: `admin123`
+- Senha: ``
 - Role: `admin`
 
 ---
