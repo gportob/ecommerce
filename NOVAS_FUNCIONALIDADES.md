@@ -158,7 +158,7 @@ if (confirm(`Deletar "${productName}"?`)) {
 ### 1. Logueue como Admin
 ```
 Email: admin@essence.com
-Senha: admin123
+Senha: 
 URL: http://localhost:8080/admin/
 ```
 
