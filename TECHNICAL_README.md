@@ -80,7 +80,7 @@ Dockerfile
 
 ### Credenciais Padrão
 - **Email:** admin@essence.com
-- **Senha:** admin123
+- **Senha:** 
 - **Hash:** `$2y$10$cxtlrjvI3BYNBbJQ3hcPDuhlo75BB5pTZ7RN.ONIiSzcdMkiMKkK2` (BCRYPT)
 
 ### Classes Importantes
@@ -241,7 +241,7 @@ X-XSS-Protection: 1; mode=block       # XSS protection
 ### 1. Cadastro de Produto com Estoque
 ```
 1. Acesse /admin/
-2. Login: admin@essence.com / admin123
+2. Login: admin@essence.com / 
 3. Clique em "Cadastrar Novo Produto"
 4. Selecione tamanhos e preencha estoque por tamanho
 5. Submeta o formulário
